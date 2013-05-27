@@ -3,11 +3,9 @@
 KERNEL=="device-mapper", NAME="mapper/control"
 
 SUBSYSTEM!="block", GOTO="dm_end"
-KERNEL!="dm-[0-9]*", GOTO="dm_end"
 
-ACTION!="add|change", GOTO="dm_end"
+ACTION=="add", KERNEL=="dm-[0-9]*", RUN+="/usr/lib/elive-tools/hooks/mount/restart-lvm2.sh"
 
-RUN+="/usr/lib/elive-tools/hooks/mount/restart-lvm2.sh"
 
 LABEL="dm_end"
 
