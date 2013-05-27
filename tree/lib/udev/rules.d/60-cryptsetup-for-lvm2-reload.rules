@@ -1,0 +1,14 @@
+# cryptsetup reloading lvm2 to discover lvm2 devices
+
+KERNEL=="device-mapper", NAME="mapper/control"
+
+SUBSYSTEM!="block", GOTO="dm_end"
+KERNEL!="dm-[0-9]*", GOTO="dm_end"
+
+ACTION!="add|change", GOTO="dm_end"
+
+RUN+="/usr/lib/elive-tools/hooks/mount/restart-lvm2.sh"
+
+LABEL="dm_end"
+
+# vim: set filetype=udevrules :

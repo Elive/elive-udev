@@ -1,5 +1,9 @@
+# DOC https://www.kernel.org/pub/linux/utils/kernel/hotplug/udev/udev.html
+
 # set deadline scheduler for non-rotating disks
 ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="noop"
 
 # set cfq scheduler for rotating disks
 ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="cfq"
+
+# vim: set filetype=udevrules :
