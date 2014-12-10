@@ -1,7 +1,7 @@
 # DOC https://www.kernel.org/pub/linux/utils/kernel/hotplug/udev/udev.html
 
 # set deadline scheduler for non-rotating disks
-ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="noop"
+ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="deadline"
 
 # set cfq scheduler for rotating disks
 ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="cfq"
