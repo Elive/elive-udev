@@ -2,10 +2,10 @@
 #
 # UPDATE: if we use a kernel with BFQ, let's just the kernel decide that we want BFQ (which is set by default in elive kernels)
 
-# set deadline scheduler for non-rotating disks
-#ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="deadline"
+# set deadline scheduler for non-rotating disks (SSD's)
+ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="deadline"
 
 # set cfq scheduler for rotating disks
-#ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="cfq"
+ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="cfq"
 
 # vim: set filetype=udevrules :
