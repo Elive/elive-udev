@@ -1,11 +1,13 @@
 # DOC https://www.kernel.org/pub/linux/utils/kernel/hotplug/udev/udev.html
 #
-# UPDATE: if we use a kernel with BFQ, let's just the kernel decide that we want BFQ (which is set by default in elive kernels)
+#
+# set scheduler for NVMe
+ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/scheduler}="none"
 
-# set deadline scheduler for non-rotating disks (SSD's)
-ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="deadline"
+# set scheduler for SSD and eMMC
+ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
 
-# set cfq scheduler for rotating disks
-ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="cfq"
+# set scheduler for rotating disks
+ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
 
 # vim: set filetype=udevrules :
