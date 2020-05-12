@@ -5,7 +5,8 @@
 ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/scheduler}="none"
 
 # set scheduler for SSD and eMMC
-ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
+# XXX Important: do not use mq-deadline, it overthinks too much and bootlenecks most of the time, an SSD should not need any scheduler at all and be simply fast and responsive
+ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
 
 # set scheduler for rotating disks
 ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
