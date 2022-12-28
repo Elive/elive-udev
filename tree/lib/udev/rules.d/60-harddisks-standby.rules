@@ -1,0 +1,6 @@
+# DOC https://www.kernel.org/pub/linux/utils/kernel/hotplug/udev/udev.html
+#
+# set the mechanical hard disk with a bigger standby value because they become broken over the time due to the many "waking up" spinnings
+ACTION=="add|change", KERNEL=="[hsv]d[a-z]", ATTR{queue/rotational}=="1", RUN+="/usr/sbin/hdparm -S 242 /dev/%k"
+
+# vim: set filetype=udevrules :
